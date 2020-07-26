@@ -1,15 +1,16 @@
 import React from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import FindFalcone from './components/FindFalcone'
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
+import FindFalcone from './components/FindFalcone/FindFalcone'
+import './App.css'
 
 function App () {
   return (
-    <>
-      <Header />
+    <main className='app'>
+      {/* <Header /> */}
       <FindFalcone />
-      <Footer />
-    </>
+      {/* <Footer /> */}
+    </main>
   )
 }
 
