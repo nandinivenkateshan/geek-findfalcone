@@ -6,11 +6,29 @@
     text-align: center;
     font-size: 25px;
 }
-
-.findFalcone__selectBtns {
+.findFalcone__form {
+    margin: 0px 200px;
+  display: flex;
+  justify-content: space-around;
+}
+.findFalcone__form__item {
+  
+}
+.form__input {
+    padding: 6px;
+}
+.form__input::-webkit-calendar-picker-indicator {
+    opacity: 1;
+ }
+ .form__input::placeholder {
+    color: black;
+    font-size: 18px;
+    opacity: 0.8;
+}
+/* .findFalcone__selectBtns {
     margin: 50px 300px;
     display: flex;
-    justify-content: space-around;
+    
 }
 
 .form__input {
@@ -24,4 +42,4 @@
         color: black;
         font-size: 18px;
         opacity: 0.6;
- }
+ } */
