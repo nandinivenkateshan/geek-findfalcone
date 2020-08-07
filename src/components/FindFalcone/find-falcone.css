@@ -11,6 +11,10 @@
   display: flex;
   justify-content: space-around;
 }
+.vehicle-disable {
+    opacity: 0.4;
+}
+
 .findFalcone__form__item {
   
 }
