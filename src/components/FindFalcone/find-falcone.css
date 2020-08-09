@@ -1,34 +1,38 @@
-.findFalcone__header {
-    text-align: center;
-}
 
 .findFalcone__sub-heading {
     text-align: center;
     font-size: 25px;
 }
 .findFalcone__form {
-    margin: 0px 200px;
   display: flex;
   justify-content: space-around;
 }
 .vehicle-disable {
     opacity: 0.4;
 }
-
-.findFalcone__form__item {
-  
+form {
+    display: grid;
+    grid-template-rows: 300px 100px;
 }
-/* .form__input {
-    padding: 6px;
+.findFalcone__btn {
+    width: 150px;
+    height: 40px;
+    margin: auto;
+    box-shadow: 2px 2px grey;
+    font-weight: bold;
+    background-color: rgb(235, 224, 224);
+    color: rgb(22, 92, 22);
+    cursor: pointer;
 }
-.form__input::-webkit-calendar-picker-indicator {
-    opacity: 1;
- }
- .form__input::placeholder {
-    color: black;
-    font-size: 18px;
-    opacity: 0.8;
-} */
+.findFalcone__btn:disabled {
+    width: 150px;
+    height: 40px;
+    margin: auto;
+    box-shadow: 1px 1px grey ;
+    font-weight: bold;
+    background: white;
+    color:grey;
+}
 
 .findFalcone__form__item_selectBtn {
     width: 200px;

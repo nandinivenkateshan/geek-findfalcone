@@ -3,9 +3,9 @@ import './header.css'
 
 function Header () {
   return (
-    <section className='header'>
-          Header kbmkm
-    </section>
+    <header>
+      <h1 className='findFalcone__header'> Finding Falcone !</h1>
+    </header>
   )
 }
 
