@@ -43,3 +43,8 @@ form {
     margin-top: 60px;
     color: rgb(62, 62, 131);
 }
+
+
+.disabled {
+    pointer-events: none;
+}

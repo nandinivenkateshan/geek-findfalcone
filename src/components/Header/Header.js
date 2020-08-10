@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 
 const Heading = styled.h1`
 text-align:center;
@@ -11,15 +10,19 @@ display:flex;
 justify-content: flex-end;
 
 `
-const StyledLink = styled(Link)`
-font-size:20px;
+const StyledLink = styled.button`
+font-size:19px;
 padding:20px;
-text-decoration: none;
+border: none;
+background:none;
+cursor:pointer;
+color: #3b403c;
 `
 const GeekLink = styled.a`
 font-size:20px;
 padding:20px;
 text-decoration: none;
+color:#3b403c;
 `
 
 function Header () {
@@ -30,7 +33,7 @@ function Header () {
   return (
     <header>
       <Aside>
-        <StyledLink to='/' onClick={handleReset}>Reset</StyledLink>
+        <StyledLink to='' onClick={handleReset}>Reset</StyledLink>
         <GeekLink href='https://www.geektrust.in/' target='new'>Geektrust Home</GeekLink>
       </Aside>
       <Heading> Finding Falcone !</Heading>

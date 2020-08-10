@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './find-falcone.css'
 import Select from 'react-select'
-import { Redirect } from 'react-router-dom'
 
 function FindFalcone () {
   const [data, setData] = useState([
@@ -14,8 +13,6 @@ function FindFalcone () {
   const [totalTime, setTime] = useState(0)
   const [submitBtn, setSubmitBtn] = useState(true)
   const [token, setToken] = useState()
-  const [response,setResponse] = useState()
-  
   useEffect(() => {
     getPlanets()
     getVehicles()
@@ -193,8 +190,9 @@ function FindFalcone () {
       body: JSON.stringify(value)
     })
     const result = await response.json()
-      setResponse(result)
-     
+    const path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime}`
+    console.log('handleSubmit')
+    window.open(path)
   }
 
   return (
@@ -234,7 +232,6 @@ function FindFalcone () {
         </section>
         <button className='findFalcone__btn' disabled={submitBtn}>Find Falcone !</button>
       </form>
-        {response ?  <Redirect to={`/find?status=${response.status}&&name=${response.planet_name}&&time=${totalTime}`} props={'nandini'} /> : null}
     </section>
   )
 }
