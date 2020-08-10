@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './find-falcone.css'
 import Select from 'react-select'
+import { Redirect } from 'react-router-dom'
 
 function FindFalcone () {
   const [data, setData] = useState([
@@ -13,7 +14,8 @@ function FindFalcone () {
   const [totalTime, setTime] = useState(0)
   const [submitBtn, setSubmitBtn] = useState(true)
   const [token, setToken] = useState()
-
+  const [response,setResponse] = useState()
+  
   useEffect(() => {
     getPlanets()
     getVehicles()
@@ -182,7 +184,6 @@ function FindFalcone () {
       planet_names,
       vehicle_names
     }
-console.log(value,'value')
     const response = await window.fetch('https://findfalcone.herokuapp.com/find', {
       method: 'POST',
       headers: {
@@ -191,7 +192,9 @@ console.log(value,'value')
       },
       body: JSON.stringify(value)
     })
-    console.log('lase response', await response.json())
+    const result = await response.json()
+      setResponse(result)
+     
   }
 
   return (
@@ -202,7 +205,7 @@ console.log(value,'value')
           {data.map((item, index) => {
             return (
               <article className='findFalcone__form__item' key={item.destination}>
-                <h4>Destination  {item.destination}</h4>
+                <h3>Destination  {item.destination}</h3>
                 <Select
                   isDisabled={item.isDisablePlanet}
                   options={item.planets}
@@ -227,11 +230,11 @@ console.log(value,'value')
               </article>
             )
           })}
-          <h4>Time Taken {totalTime}</h4>
+          <h3 className='findFalcone__form_time'>Time Taken: {totalTime}</h3>
         </section>
         <button className='findFalcone__btn' disabled={submitBtn}>Find Falcone !</button>
       </form>
-
+        {response ?  <Redirect to={`/find?status=${response.status}&&name=${response.planet_name}&&time=${totalTime}`} props={'nandini'} /> : null}
     </section>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import App from './App'
-import Status from './components/Status'
+import App from '../App'
+import Status from './Status/Status'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function routes () {
@@ -8,7 +8,7 @@ function routes () {
     <Router>
       <Switch>
         <Route exact path='/' component={App} />
-        <Route exact path='/status' component={Status} />
+        <Route path='/find' component={Status} />
       </Switch>
     </Router>
   )
