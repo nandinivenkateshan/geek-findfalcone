@@ -9,7 +9,7 @@ function App () {
     <main className='app'>
       <Header />
       <FindFalcone />
-      {/* <Footer /> */}
+      <Footer />
     </main>
   )
 }

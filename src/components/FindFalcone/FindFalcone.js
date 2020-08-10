@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './find-falcone.css'
+import './find-falcone.scss'
 import Select from 'react-select'
 
 function FindFalcone () {
@@ -9,10 +9,10 @@ function FindFalcone () {
     { destination: 3, isDisablePlanet: true, showVehicle: false, time: 0 },
     { destination: 4, isDisablePlanet: true, showVehicle: false, time: 0 }
   ])
-
   const [totalTime, setTime] = useState(0)
   const [submitBtn, setSubmitBtn] = useState(true)
   const [token, setToken] = useState()
+
   useEffect(() => {
     getPlanets()
     getVehicles()
@@ -64,7 +64,6 @@ function FindFalcone () {
   const handleSelectDest = (value, destination, indexOfSelectedPlanet) => {
     const planetName = value.name
     let deSelectedPlanets
-
     const updatedData = data.map((item, index) => {
       if (index === indexOfSelectedPlanet) {
         item.showVehicle = true
@@ -76,7 +75,6 @@ function FindFalcone () {
             elem.isDisable = false
           }
         })
-
         deSelectedPlanets = item.planets.map(planet => {
           if (planet.name === planetName) {
             planet.isSelected = true
@@ -87,7 +85,6 @@ function FindFalcone () {
         })
         item.planets = JSON.parse(JSON.stringify(deSelectedPlanets))
       }
-
       if (item.destination >= destination) {
         item.vehicles.forEach(item => {
           item.count = 0
@@ -113,7 +110,6 @@ function FindFalcone () {
       if (destination === 4) {
         setSubmitBtn(false)
       }
-
       if (destination === item.destination) {
         item.vehicles.forEach(ele => {
           if (ele.name === vehicleName) {
@@ -123,7 +119,6 @@ function FindFalcone () {
           }
         })
       }
-
       if (item.destination >= destination) {
         item.vehicles.forEach(elem => {
           if (elem.name === vehicleName && !elem.count) {
@@ -138,15 +133,11 @@ function FindFalcone () {
           if (elem.name !== vehicleName && elem.count) {
             elem.total_no += 1
             elem.count -= 1
-            if (item.destination === destination) {
-
-            }
           }
         })
       }
       return item
     })
-
     data.map(item => {
       time.push(item.time)
       return time
@@ -154,7 +145,6 @@ function FindFalcone () {
     const totalTime = time.reduce((acc, cv) => {
       return acc + cv
     }, 0)
-    console.log('total', totalTime)
     setTime(totalTime)
     setData(updatedData)
   }
@@ -175,7 +165,6 @@ function FindFalcone () {
         }
       })
     })
-
     const value = {
       token,
       planet_names,
@@ -191,36 +180,35 @@ function FindFalcone () {
     })
     const result = await response.json()
     const path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime}`
-    console.log('handleSubmit')
     window.open(path)
   }
 
   return (
     <section className='findFalcone'>
-      <p className='findFalcone__sub-heading'>Select planets you want to search in </p>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <section className='findFalcone__form'>
+      <p className='findFalcone__heading'>Select planets you want to search in </p>
+      <form onSubmit={(e) => handleSubmit(e)} className='findFalcone__form'>
+        <section className='findFalcone__form__destinationList'>
           {data.map((item, index) => {
             return (
-              <article className='findFalcone__form__item' key={item.destination}>
-                <h3>Destination  {item.destination}</h3>
+              <article className='findFalcone__form__destinations' key={item.destination}>
+                <p className='findFalcone__destination'>Destination  {item.destination}</p>
                 <Select
                   isDisabled={item.isDisablePlanet}
                   options={item.planets}
                   onChange={value => handleSelectDest(value, item.destination, index)}
-                  className='findFalcone__form__item_selectBtn'
+                  className='findFalcone__selectBtn'
                 />
                 <div>
                   {item.showVehicle && item.vehicles.map(elem => {
                     return (
-                      <p key={elem.name + item.destination} className={elem.isDisable ? 'vehicle-disable' : ''}>
+                      <p key={elem.name + item.destination} className={elem.isDisable ? 'disabled-vehicle' : 'active-vehicle'}>
                         <input
                           id={elem.name + item.destination}
                           type='radio' value={`${elem.name}.${item.destination}`}
                           name={`vehicle${item.destination}`}
                           onChange={(e) => handleRadio(e, index, item.destination)}
                         />
-                        <label htmlFor={elem.name + item.destination}>{elem.name}</label>
+                        <label htmlFor={elem.name + item.destination} className='findFalcone__destination__label'>{elem.name}</label>
                         <label>({elem.total_no})</label>
                       </p>)
                   })}
@@ -230,7 +218,7 @@ function FindFalcone () {
           })}
           <h3 className='findFalcone__form_time'>Time Taken: {totalTime}</h3>
         </section>
-        <button className='findFalcone__btn' disabled={submitBtn}>Find Falcone !</button>
+        <button className='findFalcone__submitBtn' disabled={submitBtn}>Find Falcone !</button>
       </form>
     </section>
   )

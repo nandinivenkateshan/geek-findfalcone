@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const Heading = styled.h1`
 text-align:center;
-
 `
 const Aside = styled.aside`
 display:flex;

@@ -10,40 +10,51 @@
 }
 .vehicle-disable {
     opacity: 0.4;
+    pointer-events:none;
+    font-size:20px;
+
+}
+.active-vehicles {
+    font-size:20px;
+}
+.findFalcone__form__items {
+    font-size: 20px;
 }
 form {
     display: grid;
     grid-template-rows: 300px 100px;
 }
 .findFalcone__btn {
-    width: 150px;
-    height: 40px;
-    margin: auto;
+    margin: 10px auto;
+    height:40px;
     box-shadow: 2px 2px grey;
     font-weight: bold;
     background-color: rgb(235, 224, 224);
     color: rgb(22, 92, 22);
     cursor: pointer;
+    font-size:20px;
 }
 .findFalcone__btn:disabled {
-    width: 150px;
-    height: 40px;
-    margin: auto;
+    margin:10px auto;
     box-shadow: 1px 1px grey ;
     font-weight: bold;
     background: white;
-    color:grey;
+    color:#0d0f0e;
 }
 
 .findFalcone__form__item_selectBtn {
     width: 200px;
+    font-size:20px;
 }
-
+cursor: pointer;
 .findFalcone__form_time {
     margin-top: 60px;
     color: rgb(62, 62, 131);
 }
 
+.label {
+    cursor: pointer;
+}
 
 .disabled {
     pointer-events: none;
