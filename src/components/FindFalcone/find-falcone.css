@@ -10,7 +10,7 @@
 
 .findFalcone__form {
   display: grid;
-  grid-template-rows: 300px 50px;
+  grid-template-rows: 280px 50px;
 }
 
 .findFalcone__form__destinationList {
