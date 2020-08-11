@@ -172,7 +172,13 @@ function FindFalcone () {
       body: JSON.stringify(value)
     })
     const result = await response.json()
-    const path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime}`
+    let path
+    if (result.status) {
+      path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime}`
+    }
+    if (result.error) {
+      path = '/error'
+    }
     // open the result in new tab
     window.open(path)
   }
