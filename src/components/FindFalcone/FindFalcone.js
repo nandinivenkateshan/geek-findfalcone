@@ -135,9 +135,7 @@ function FindFalcone () {
       return time
     })
     // calculate the total time
-    const totalTime = time.reduce((acc, cv) => {
-      return acc + cv
-    }, 0)
+    const totalTime = time.reduce((acc, cv) => acc + cv, 0)
     setTime(totalTime)
     setData(updatedData)
   }
@@ -186,7 +184,7 @@ function FindFalcone () {
   return (
     <section className='findFalcone'>
       <p className='findFalcone__heading'>Select planets you want to search in </p>
-      <form onSubmit={(e) => handleSubmit(e)} className='findFalcone__form'>
+      <form onSubmit={handleSubmit} className='findFalcone__form'>
         <section className='findFalcone__form__destinationList'>
           {data.map((item, index) => {
             return (
@@ -206,7 +204,7 @@ function FindFalcone () {
                           id={elem.name + item.destination}
                           type='radio' value={elem.name}
                           name={`vehicle${item.destination}`}
-                          onChange={(e) => handleRadio(e, index, item.destination)}
+                          onChange={e => handleRadio(e, index, item.destination)}
                         />
                         <label htmlFor={elem.name + item.destination} className='findFalcone__destination__label'>{elem.name}</label>
                         <label>({elem.total_no})</label>
