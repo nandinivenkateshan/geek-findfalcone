@@ -1,61 +1,58 @@
-
-.findFalcone__sub-heading {
-    text-align: center;
-    font-size: 25px;
+.findFalcone__heading {
+  font-size: 25px;
+  text-align: center;
 }
+
 .findFalcone__form {
-  display: flex;
-  justify-content: space-around;
-  margin: 0px 100px;
-}
-.vehicle-disable {
-    opacity: 0.4;
-    pointer-events:none;
-    font-size:20px;
-
-}
-.active-vehicles {
-    font-size:20px;
-}
-.findFalcone__form__items {
-    font-size: 20px;
-}
-form {
-    display: grid;
-    grid-template-rows: 300px 100px;
-}
-.findFalcone__btn {
-    margin: 10px auto;
-    height:40px;
-    box-shadow: 2px 2px grey;
-    font-weight: bold;
-    background-color: rgb(235, 224, 224);
-    color: rgb(22, 92, 22);
-    cursor: pointer;
-    font-size:20px;
-}
-.findFalcone__btn:disabled {
-    margin:10px auto;
-    box-shadow: 1px 1px grey ;
-    font-weight: bold;
-    background: white;
-    color:#0d0f0e;
+  display: grid;
+  grid-template-rows: 400px 50px;
 }
 
-.findFalcone__form__item_selectBtn {
-    width: 200px;
-    font-size:20px;
+.findFalcone__form__destinationList {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 100px;
+  margin: 0px 150px;
 }
-cursor: pointer;
+
+.findFalcone__submitBtn {
+  width: 180px;
+  margin: 0px auto;
+  box-shadow: 2px 2px grey;
+  font-weight: bold;
+  background-color: rgb(235, 224, 224);
+  color: rgb(22, 92, 22);
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.findFalcone__submitBtn:disabled {
+  box-shadow: 1px 1px grey;
+  font-weight: bold;
+  background: #ffffff;
+  color: #0d0f0e;
+  pointer-events: none;
+}
+
+.disabled-vehicle {
+  opacity: 0.4;
+  pointer-events: none;
+  font-size: 20px;
+}
+
+.active-vehicle {
+  font-size: 20px;
+}
+
+.findFalcone__form__destinations {
+  font-size: 20px;
+}
+
 .findFalcone__form_time {
-    margin-top: 60px;
-    color: rgb(62, 62, 131);
+  margin-top: 60px;
+  color: rgb(62, 62, 131);
 }
 
-.label {
-    cursor: pointer;
-}
-
-.disabled {
-    pointer-events: none;
+.findFalcone__destination__label {
+  cursor: pointer;
 }

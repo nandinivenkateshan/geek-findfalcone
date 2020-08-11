@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './find-falcone.scss'
+import './find-falcone.css'
 import Select from 'react-select'
 
 function FindFalcone () {
@@ -68,19 +68,13 @@ function FindFalcone () {
       if (index === indexOfSelectedPlanet) {
         item.showVehicle = true
         item.time = 0
+        // disable the vehicles based on the speed and distance
         item.vehicles.forEach(elem => {
-          if (!elem.total_no || value.distance > elem.max_distance) {
-            elem.isDisable = true
-          } else {
-            elem.isDisable = false
-          }
+          (!elem.total_no || value.distance > elem.max_distance) ? elem.isDisable = true : elem.isDisable = false
         })
+        // Not to show the planet in next destination once it's selected
         deSelectedPlanets = item.planets.map(planet => {
-          if (planet.name === planetName) {
-            planet.isSelected = true
-          } else {
-            planet.isSelected = false
-          }
+          (planet.name === planetName) ? planet.isSelected = true : planet.isSelected = false
           return planet
         })
         item.planets = JSON.parse(JSON.stringify(deSelectedPlanets))
@@ -100,25 +94,24 @@ function FindFalcone () {
   }
 
   const handleRadio = (e, indexOfSelectedPlanet, destination) => {
-    const vehicleName = e.target.value.split('.')[0]
+    const vehicleName = e.target.value
     const time = []
     const planetDistance = data[indexOfSelectedPlanet].planets.filter(item => item.isSelected)[0].distance
     const updatedData = data.map(item => {
+      // disable the select options
       if (item.destination === destination + 1 && destination <= 4) {
         item.isDisablePlanet = false
       }
+      // Activate the submit button once destination 4 vehicle selected
       if (destination === 4) {
         setSubmitBtn(false)
       }
       if (destination === item.destination) {
         item.vehicles.forEach(ele => {
-          if (ele.name === vehicleName) {
-            ele.checked = true
-          } else {
-            ele.checked = false
-          }
+          (ele.name === vehicleName) ? ele.checked = true : ele.checked = false
         })
       }
+      // Calaculation the time and no.of total vehicles left
       if (item.destination >= destination) {
         item.vehicles.forEach(elem => {
           if (elem.name === vehicleName && !elem.count) {
@@ -126,7 +119,6 @@ function FindFalcone () {
             elem.count += 1
             if (item.destination === destination) {
               const distance = planetDistance / elem.speed
-
               item.time = distance
             }
           }
@@ -142,6 +134,7 @@ function FindFalcone () {
       time.push(item.time)
       return time
     })
+    // calculate the total time
     const totalTime = time.reduce((acc, cv) => {
       return acc + cv
     }, 0)
@@ -151,24 +144,24 @@ function FindFalcone () {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const planet_names = []
-    const vehicle_names = []
+    const planetNames = []
+    const vehicleNames = []
     data.map(item => {
       item.planets.map(ele => {
         if (ele.isSelected) {
-          planet_names.push(ele.name)
+          planetNames.push(ele.name)
         }
       })
       item.vehicles.map(ele => {
         if (ele.checked) {
-          vehicle_names.push(ele.name)
+          vehicleNames.push(ele.name)
         }
       })
     })
     const value = {
       token,
-      planet_names,
-      vehicle_names
+      planet_names: planetNames,
+      vehicle_names: vehicleNames
     }
     const response = await window.fetch('https://findfalcone.herokuapp.com/find', {
       method: 'POST',
@@ -180,6 +173,7 @@ function FindFalcone () {
     })
     const result = await response.json()
     const path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime}`
+    // open the result in new tab
     window.open(path)
   }
 
@@ -204,7 +198,7 @@ function FindFalcone () {
                       <p key={elem.name + item.destination} className={elem.isDisable ? 'disabled-vehicle' : 'active-vehicle'}>
                         <input
                           id={elem.name + item.destination}
-                          type='radio' value={`${elem.name}.${item.destination}`}
+                          type='radio' value={elem.name}
                           name={`vehicle${item.destination}`}
                           onChange={(e) => handleRadio(e, index, item.destination)}
                         />
