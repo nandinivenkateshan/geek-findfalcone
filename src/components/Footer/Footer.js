@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledFooter = styled.footer`
+margin-top:10px;
 text-align: center;
-font-size:20px
+font-size:15px
 `
 const StyledLink = styled.a`
 text-decoration:none;

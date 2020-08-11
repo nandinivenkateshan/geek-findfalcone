@@ -10,7 +10,7 @@ justify-content: flex-end;
 }
 `
 const StyledLink = styled.button`
-font-size:19px;
+font-size:14px;
 padding:20px;
 border: none;
 background:none;
@@ -18,7 +18,7 @@ cursor:pointer;
 color: #3b403c;
 `
 const GeekLink = styled.a`
-font-size:20px;
+font-size:15px;
 padding:20px;
 text-decoration: none;
 color:#3b403c;
