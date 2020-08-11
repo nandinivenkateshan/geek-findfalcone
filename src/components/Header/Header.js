@@ -7,7 +7,7 @@ text-align:center;
 const Aside = styled.aside`
 display:flex;
 justify-content: flex-end;
-
+}
 `
 const StyledLink = styled.button`
 font-size:19px;

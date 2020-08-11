@@ -56,3 +56,31 @@
 .findFalcone__destination__label {
   cursor: pointer;
 }
+
+@media  (min-width:320px) and (max-width:600px){
+    .findFalcone {
+        margin-top:-60px;
+    }
+  .findFalcone__form__destinationList {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5,1fr);
+      grid-gap: 10px;
+  }
+  .findFalcone__form {
+    grid-template-rows: 830px 50px;
+  }
+}
+
+@media (min-width:768px) and (max-width:1024px) {
+    .findFalcone__form__destinationList {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 0px 25px;
+    }
+    .findFalcone__form {
+        grid-template-rows: 500px 50px;
+      }
+      .findFalcone__form_time {
+          grid-area: 3/1/4/3;
+        text-align: center;
+      }
+}
