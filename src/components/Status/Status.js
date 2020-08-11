@@ -44,7 +44,7 @@ function Status (props) {
       {values.status === 'success'
         ? (
           <>
-            <SuccesStatus>Succes! Congratulations on Finding Falcone.King Shan is almighty pleased.</SuccesStatus>
+            <SuccesStatus>Success! Congratulations on Finding Falcone.King Shan is almighty pleased.</SuccesStatus>
             <SubHeading>Time Taken:  <Span>{values.time}</Span></SubHeading>
             <SubHeading>Planet Found:  <Span>{values.name}</Span></SubHeading>
           </>)
