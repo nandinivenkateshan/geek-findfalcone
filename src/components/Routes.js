@@ -1,7 +1,6 @@
 import React from 'react'
 import App from '../App'
-import Status from './Status/Status'
-import ErrorResponse from './Status/ErrorResponse'
+import SuccessResponse from './Status/SuccessResponse'
 import NotFound from './Status/NotFound'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -10,8 +9,7 @@ function routes () {
     <Router>
       <Switch>
         <Route exact path='/' component={App} />
-        <Route path='/find' component={Status} />
-        <Route exact path='/error' component={ErrorResponse} />
+        <Route path='/find' component={SuccessResponse} />
         <Route component={NotFound} />
       </Switch>
     </Router>

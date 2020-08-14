@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import './find-falcone.css'
+import '../../assets/css/find-falcone.css'
 import Select from 'react-select'
+import { fetchGet,fetchPost, fetchToken } from '../../helpers'
+import { BASE_URL } from '../../config'
+import NetworkErr from '../Status/NetworkErr'
+ 
 
-function FindFalcone () {
+function FindFalcone ({onNetwork}) {
   const [data, setData] = useState([
     { destination: 1, showPlanets: true, showVehicles: false, time: 0 },
     { destination: 2, showPlanets: false, showVehicles: false, time: 0 },
@@ -14,65 +18,76 @@ function FindFalcone () {
   const [token, setToken] = useState()
 
   useEffect(() => {
+    getToken()
     getPlanets()
     getVehicles()
-    getToken()
   }, [])
 
+  const updateData = (key,val) => {
+    const updatedData = data.map(item => {
+      item[key] = JSON.parse(JSON.stringify(val))
+      return item
+    })
+    setData(updatedData)
+  }
+
+ 
+  const getToken = async () => {
+    const result= await fetchToken(`${BASE_URL}/token`)
+    if (result.error) {
+      onNetwork(result.error)
+      return
+    }
+    if (result.netErr) {
+      onNetwork('Network Error:  Failed to Fetch token')
+      return
+    }
+    setToken(result.token)
+  }
+
+
   const getPlanets = async () => {
-    const response = await window.fetch('https://findfalcone.herokuapp.com/planets')
-    const result = await response.json()
+    const result = await fetchGet(`${BASE_URL}/planets`)
+    if (result.netErr) {
+      onNetwork('Network Error:  Failed to Fetch Planets') 
+      return
+    }
     const updatedResult = result.map((item, index) => {
       item.value = item.name
       item.label = item.name
       item.isSelected = false
       return item
     })
-    const updatedData = data.map(item => {
-      item.planets = JSON.parse(JSON.stringify(updatedResult))
-      return item
-    })
-    setData(updatedData)
+    updateData('planets',updatedResult)
   }
 
   const getVehicles = async () => {
-    const response = await window.fetch('https://findfalcone.herokuapp.com/vehicles')
-    const result = await response.json()
+    const result = await fetchGet(`${BASE_URL}/vehicles`)
+    if (result.netErr) {
+      onNetwork('Network Error:  Failed to Fetch Vehicles')
+      return
+    }
     result.forEach(item => {
       item.isDisable = ''
       item.count = 0
       item.checked = false
     })
-    const updatedData = data.map(item => {
-      item.vehicles = JSON.parse(JSON.stringify(result))
-      return item
-    })
-    setData(updatedData)
+    updateData('vehicles',result)
   }
 
-  const getToken = async () => {
-    const response = await window.fetch('https://findfalcone.herokuapp.com/token', {
-      method: 'POST',
-      headers: {
-        accept: 'application/json'
-      }
-    })
-    const result = await response.json()
-    setToken(result.token)
-  }
-
-  const handleSelectDest = (value, destination, indexOfSelectedPlanet) => {
+ 
+  const handleSelect = (value, destination, planetIndex) => {
     const planetName = value.name
     let deSelectedPlanets
     const updatedData = data.map((item, index) => {
-      if (index === indexOfSelectedPlanet) {
+      if (index === planetIndex) {
         item.showVehicles = true
         item.time = 0
         // disable the vehicles based on the speed and distance
         item.vehicles.forEach(elem => {
           (!elem.total_no || value.distance > elem.max_distance) ? elem.isDisable = true : elem.isDisable = false
         })
-        // Not to show the planet in next destination once it's selected
+        //Don't show the selected planet in the next destination
         deSelectedPlanets = item.planets.map(planet => {
           (planet.name === planetName) ? planet.isSelected = true : planet.isSelected = false
           return planet
@@ -84,7 +99,7 @@ function FindFalcone () {
           item.count = 0
         })
       }
-      if (item.destination !== destination && item.destination > indexOfSelectedPlanet) {
+      if (item.destination !== destination && item.destination > planetIndex) {
         const val = deSelectedPlanets.filter(item => !item.isSelected)
         item.planets = JSON.parse(JSON.stringify(val))
       }
@@ -93,16 +108,16 @@ function FindFalcone () {
     setData(updatedData)
   }
 
-  const handleRadio = (e, indexOfSelectedPlanet, destination) => {
+  const handleRadio = (e, planetIndex, destination) => {
     const vehicleName = e.target.value
     const time = []
-    const planetDistance = data[indexOfSelectedPlanet].planets.filter(item => item.isSelected)[0].distance
+    const planetDistance = data[planetIndex].planets.filter(item => item.isSelected)[0].distance
     const updatedData = data.map(item => {
       // disable the select options
       if (item.destination === destination + 1 && destination <= 4) {
         item.showPlanets = true
       }
-      // Activate the submit button once destination 4 vehicle selected
+      // Activate the submit button once destination4's vehicle selected
       if (destination === 4) {
         setSubmitBtn(false)
       }
@@ -111,7 +126,7 @@ function FindFalcone () {
           (ele.name === vehicleName) ? ele.checked = true : ele.checked = false
         })
       }
-      // Calaculation the time and no.of total vehicles left
+      // Calaculate the time and no.of total vehicles left
       if (item.destination >= destination) {
         item.vehicles.forEach(elem => {
           if (elem.name === vehicleName && !elem.count) {
@@ -142,6 +157,7 @@ function FindFalcone () {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    let path
     const planetNames = []
     const vehicleNames = []
     data.map(item => {
@@ -161,65 +177,56 @@ function FindFalcone () {
       planet_names: planetNames,
       vehicle_names: vehicleNames
     }
-    const response = await window.fetch('https://findfalcone.herokuapp.com/find', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(value)
-    })
-    const result = await response.json()
-    let path
+    const result = await fetchPost(`${BASE_URL}/find`, value)
+    if (result.netErr) {
+      onNetwork('Network Error in finding falcone')
+      return
+    }
     if (result.status) {
       path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime}`
     }
-    if (result.error) {
-      path = '/error'
-    }
-    // open the result in new tab
     window.open(path)
   }
 
   return (
     <main className='falcone falcone-main'>
-      <p className='falcone-main__heading'>Select planets you want to search in </p>
-      <form onSubmit={handleSubmit} className='form falcone__form'>
-        <section className='form__content'>
-          {data.map((item, index) => {
-            return (
-              <article key={item.destination}>
-                <p className='form__content__heading'>Destination  {item.destination}</p>
-                <Select
-                  isDisabled={!item.showPlanets}
-                  options={item.planets}
-                  onChange={value => handleSelectDest(value, item.destination, index)}
-                  className='form__content__select'
-                />
-                <div>
-                  {item.showVehicles && item.vehicles.map(elem => {
-                    return (
-                      <p key={elem.name + item.destination} 
-                      className={elem.isDisable ? 'form__content__p--disable' : 'form__content__p--active'}>
-                        <input
-                          id={elem.name + item.destination}
-                          type='radio' value={elem.name}
-                          name={`vehicle${item.destination}`}
-                          onChange={e => handleRadio(e, index, item.destination)}
-                        />
-                        <label htmlFor={elem.name + item.destination} className='form__content__p__label'>{elem.name}</label>
-                        <label>({elem.total_no})</label>
-                      </p>)
-                  })}
-                </div>
-              </article>
-            )
-          })}
-          <h3 className='form__content__time'>Time Taken: {totalTime}</h3>
-        </section>
-        <button className='falcone__form__submit' disabled={submitBtn}>Find Falcone !</button>
-      </form>
-    </main>
+    <p className='falcone-main__heading'>Select planets you want to search in </p>
+    <form onSubmit={handleSubmit} className='form falcone__form'>
+      <section className='form__content'>
+        {data.map((item, index) => {
+          return (
+            <article key={item.destination}>
+              <p className='form__content__heading'>Destination  {item.destination}</p>
+              <Select
+                isDisabled={!item.showPlanets}
+                options={item.planets}
+                onChange={value => handleSelect(value, item.destination, index)}
+                className='form__content__select'
+              />
+              <div>
+                {item.showVehicles && item.vehicles.map(elem => {
+                  return (
+                    <p key={elem.name + item.destination} 
+                    className={elem.isDisable ? 'form__content__p--disable' : 'form__content__p--active'}>
+                      <input
+                        id={elem.name + item.destination}
+                        type='radio' value={elem.name}
+                        name={`vehicle${item.destination}`}
+                        onChange={e => handleRadio(e, index, item.destination)}
+                      />
+                      <label htmlFor={elem.name + item.destination} className='form__content__p__label'>{elem.name}</label>
+                      <label>({elem.total_no})</label>
+                    </p>)
+                })}
+              </div>
+            </article>
+          )
+        })}
+        <h3 className='form__content__time'>Time Taken: {totalTime}</h3>
+      </section>
+      <button className='falcone__form__submit' disabled={submitBtn}>Find Falcone !</button>
+    </form>
+  </main>
   )
 }
 

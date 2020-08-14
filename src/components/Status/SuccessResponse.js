@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import queryString from 'query-string'
-import Header from './../Header/Header'
+import Header from '../Header/Header'
 
 const FailedStatus = styled.p`
 text-align: center;
@@ -32,7 +32,7 @@ const Span = styled.span`
 color: #191a19;
 `
 
-function Status (props) {
+function SuccessResponse (props) {
   const values = queryString.parse(props.location.search)
   const [isStartAgain, setStartAgain] = useState(false)
   const handleStart = () => {
@@ -55,4 +55,4 @@ function Status (props) {
   )
 }
 
-export default Status
+export default SuccessResponse

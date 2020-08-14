@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import FindFalcone from './components/FindFalcone/FindFalcone'
-import './App.css'
+import './assets/css/App.css'
+import NetworkErr from './components/Status/NetworkErr'
 
 function App () {
+  const [networkErr, setNetworkErr] = useState('')
+  const handleNetwork = val => {
+    setNetworkErr(val)
+  }
   return (
     <main className='app'>
-      <Header />
-      <FindFalcone />
-      <Footer />
+      {
+        networkErr ? 
+        <NetworkErr err={networkErr} /> :
+        <>
+          <Header />
+          <FindFalcone onNetwork={val => handleNetwork(val)} />
+          <Footer />
+        </>
+      }
+      
     </main>
   )
 }
