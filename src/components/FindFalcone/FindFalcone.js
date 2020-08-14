@@ -189,7 +189,7 @@ function FindFalcone () {
           {data.map((item, index) => {
             return (
               <article className='findFalcone__form__destinations' key={item.destination}>
-                <p className='findFalcone__destination'>Destination  {item.destination}</p>
+                <p className='findFalcone__destination__heading'>Destination  {item.destination}</p>
                 <Select
                   isDisabled={item.isDisablePlanet}
                   options={item.planets}
