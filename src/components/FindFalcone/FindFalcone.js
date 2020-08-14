@@ -4,10 +4,10 @@ import Select from 'react-select'
 
 function FindFalcone () {
   const [data, setData] = useState([
-    { destination: 1, isDisablePlanet: false, showVehicle: false, time: 0 },
-    { destination: 2, isDisablePlanet: true, showVehicle: false, time: 0 },
-    { destination: 3, isDisablePlanet: true, showVehicle: false, time: 0 },
-    { destination: 4, isDisablePlanet: true, showVehicle: false, time: 0 }
+    { destination: 1, showPlanets: true, showVehicles: false, time: 0 },
+    { destination: 2, showPlanets: false, showVehicles: false, time: 0 },
+    { destination: 3, showPlanets: false, showVehicles: false, time: 0 },
+    { destination: 4, showPlanets: false, showVehicles: false, time: 0 }
   ])
   const [totalTime, setTime] = useState(0)
   const [submitBtn, setSubmitBtn] = useState(true)
@@ -66,7 +66,7 @@ function FindFalcone () {
     let deSelectedPlanets
     const updatedData = data.map((item, index) => {
       if (index === indexOfSelectedPlanet) {
-        item.showVehicle = true
+        item.showVehicles = true
         item.time = 0
         // disable the vehicles based on the speed and distance
         item.vehicles.forEach(elem => {
@@ -100,7 +100,7 @@ function FindFalcone () {
     const updatedData = data.map(item => {
       // disable the select options
       if (item.destination === destination + 1 && destination <= 4) {
-        item.isDisablePlanet = false
+        item.showPlanets = true
       }
       // Activate the submit button once destination 4 vehicle selected
       if (destination === 4) {
@@ -182,31 +182,32 @@ function FindFalcone () {
   }
 
   return (
-    <section className='findFalcone'>
-      <p className='findFalcone__heading'>Select planets you want to search in </p>
-      <form onSubmit={handleSubmit} className='findFalcone__form'>
-        <section className='findFalcone__form__destinationList'>
+    <main className='falcone falcone-main'>
+      <p className='falcone-main__heading'>Select planets you want to search in </p>
+      <form onSubmit={handleSubmit} className='form falcone__form'>
+        <section className='form__content'>
           {data.map((item, index) => {
             return (
-              <article className='findFalcone__form__destinations' key={item.destination}>
-                <p className='findFalcone__destination__heading'>Destination  {item.destination}</p>
+              <article key={item.destination}>
+                <p className='form__content__heading'>Destination  {item.destination}</p>
                 <Select
-                  isDisabled={item.isDisablePlanet}
+                  isDisabled={!item.showPlanets}
                   options={item.planets}
                   onChange={value => handleSelectDest(value, item.destination, index)}
-                  className='findFalcone__selectBtn'
+                  className='form__content__select'
                 />
                 <div>
-                  {item.showVehicle && item.vehicles.map(elem => {
+                  {item.showVehicles && item.vehicles.map(elem => {
                     return (
-                      <p key={elem.name + item.destination} className={elem.isDisable ? 'disabled-vehicle' : 'active-vehicle'}>
+                      <p key={elem.name + item.destination} 
+                      className={elem.isDisable ? 'form__content__p--disable' : 'form__content__p--active'}>
                         <input
                           id={elem.name + item.destination}
                           type='radio' value={elem.name}
                           name={`vehicle${item.destination}`}
                           onChange={e => handleRadio(e, index, item.destination)}
                         />
-                        <label htmlFor={elem.name + item.destination} className='findFalcone__destination__label'>{elem.name}</label>
+                        <label htmlFor={elem.name + item.destination} className='form__content__p__label'>{elem.name}</label>
                         <label>({elem.total_no})</label>
                       </p>)
                   })}
@@ -214,11 +215,11 @@ function FindFalcone () {
               </article>
             )
           })}
-          <h3 className='findFalcone__form_time'>Time Taken: {totalTime}</h3>
+          <h3 className='form__content__time'>Time Taken: {totalTime}</h3>
         </section>
-        <button className='findFalcone__submitBtn' disabled={submitBtn}>Find Falcone !</button>
+        <button className='falcone__form__submit' disabled={submitBtn}>Find Falcone !</button>
       </form>
-    </section>
+    </main>
   )
 }
 

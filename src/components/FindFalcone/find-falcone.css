@@ -1,26 +1,26 @@
-.findFalcone__heading {
+.falcone-main__heading {
   font-size: 20px;
   text-align: center;
   color: rgb(2, 58, 2);
 }
 
-.findFalcone {
+.falcone-main {
   margin-top:-30px;
 }
 
-.findFalcone__form {
+.falcone__form {
   display: grid;
   grid-template-rows: 300px 40px;
 }
 
-.findFalcone__form__destinationList {
+.form__content {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 100px;
   margin: 0px 100px;
 }
 
-.findFalcone__submitBtn {
+.falcone__form__submit {
   width: 140px;
   height: 40px;
   margin: 0px auto;
@@ -32,7 +32,7 @@
   font-size: 15px;
 }
 
-.findFalcone__submitBtn:disabled {
+.falcone__form__submit:disabled {
   box-shadow: 1px 1px grey;
   font-weight: bold;
   background: #ffffff;
@@ -40,41 +40,41 @@
   pointer-events: none;
 }
 
-.disabled-vehicle {
+.form__content__p--disable {
   opacity: 0.4;
   pointer-events: none;
   font-size: 15px;
 }
 
-.active-vehicle, .findFalcone__selectBtn {
+.form__content__p--active, .form__content__select {
   font-size: 15px;
 }
 
-.findFalcone__form_time {
+.form__content__time {
   margin-top: 60px;
   color: rgb(62, 62, 131);
 }
 
-.findFalcone__destination__label {
+form__content__p__label {
   cursor: pointer;
 } 
 
-.findFalcone__destination__heading {
+.form__content__heading {
   font-weight: bold;
 }
 
  @media  (min-width:320px) and (max-width:600px){
-    .findFalcone {
+    .falcone-main {
         margin-top:-220px;
     }
-  .findFalcone__form__destinationList {
+  .form__content {
       grid-template-columns: 1fr;
       grid-template-rows: repeat(4,150px) 30px;
   }
-  .findFalcone__form {
+  .falcone__form {
     grid-template-rows: 1100px 30px ;
   }
-  .findFalcone__form_time {
+  .form__content__time {
     margin-top: 30px;
     color: rgb(62, 62, 131);
     font-size: 16px;
@@ -83,19 +83,19 @@
 } 
 
 @media (min-width:768px) and (max-width:1024px) {
-    .findFalcone__form__destinationList {
+    .form__content {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr 0.5fr;
         grid-gap: 0px 25px;
     }
-    .findFalcone__form {
+    .falcone__form {
         grid-template-rows: 600px 50px;
       }
-      .findFalcone__form_time {
+      .form__content__time {
         grid-area: 4/1/5/3;
         text-align: center;
       }
-      .findFalcone {
+      .falcone-main {
         margin-top:-100px;
     }
 }
