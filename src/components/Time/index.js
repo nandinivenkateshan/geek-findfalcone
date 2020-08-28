@@ -1,13 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '../../assets/css/style.css'
-import { DataContext } from '../Context'
 
-function Time () {
-    const { state, dispatch } = useContext(DataContext)
-    // state.map(item => )
+function Time ({data}) {
     
-    const totalTime = state.reduce((acc,cv) => ({time:acc.time + cv.time}))
-    
+    const totalTime = data.reduce((acc,cv) => ({time:acc.time + cv.time}))
+
     return (
     <h4 className='falcone__time'>Time: {totalTime.time}</h4>
     )

@@ -3,7 +3,6 @@ import '../../assets/css/find-falcone.css'
 import Select from 'react-select'
 import { fetchGet,fetchPost, fetchToken } from '../../helpers'
 import { BASE_URL } from '../../config'
-import NetworkErr from '../Status/NetworkErr'
  
 
 function FindFalcone ({onNetwork}) {
