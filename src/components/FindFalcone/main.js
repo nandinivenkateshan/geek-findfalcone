@@ -79,7 +79,8 @@ function FindFalcone ({onNetwork}) {
   const handleSelect = (value, destination, planetIndex) => {
     const planetName = value.name
     let deSelectedPlanets
-    const updatedData = data.map((item, index) => {
+    const updatedData = data.map((item, index) => { 
+      
       if (index === planetIndex) {
         item.showVehicles = true
         item.time = 0
@@ -113,7 +114,7 @@ function FindFalcone ({onNetwork}) {
     const time = []
     const planetDistance = data[planetIndex].planets.filter(item => item.isSelected)[0].distance
     const updatedData = data.map(item => {
-      // disable the select options
+      // disable the select options 
       if (item.destination === destination + 1 && destination <= 4) {
         item.showPlanets = true
       }
@@ -200,11 +201,12 @@ function FindFalcone ({onNetwork}) {
               <Select
                 isDisabled={!item.showPlanets}
                 options={item.planets}
-                onChange={value => handleSelect(value, item.destination, index)}
+                 onChange={value => handleSelect(value, item.destination, index)}
                 className='form__content__select'
-              />
+              /> 
               <div>
-                {item.showVehicles && item.vehicles.map(elem => {
+                {item.showVehicles && item.vehicles
+                .map(elem => { 
                   return (
                     <p key={elem.name + item.destination} 
                     className={elem.isDisable ? 'form__content__p--disable' : 'form__content__p--active'}>

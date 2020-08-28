@@ -1,0 +1,35 @@
+.planets{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+.falcone-main {
+    margin: 10px 60px;
+    display:grid;
+    grid-template-columns: 8fr 1fr;
+}
+.falcone-main__heading {
+    grid-area:1/1/2/3;
+    margin:0 auto;
+}
+.falcone__time {
+    grid-area: 2/2/3/3;
+    margin: auto;
+}
+
+.find-button {
+    grid-area: 3/1/4/3;
+    height:40px;
+    width:100px;
+    margin:auto;
+}
+
+.form__content__p--disable {
+    opacity: 0.4;
+    pointer-events: none;
+    font-size: 15px;
+  }
+
+  
+.form__content__p--active, .form__content__select {
+    font-size: 15px;
+  }
