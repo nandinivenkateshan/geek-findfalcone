@@ -6,9 +6,6 @@ import Header from '../Header'
 import Footer from '../Footer'
 import '../../assets/css/App.css'
 
-const StyledSection = styled.section`
-margin-top:0px;
-`
 const FailedStatus = styled.p`
 text-align: center;
 font-size: 25px;
@@ -46,7 +43,7 @@ function SuccessResponse (props) {
   return (
     <main className='app'>
       <Header />
-      <StyledSection>
+      <section>
         {values.status === 'success'
           ? (
             <>
@@ -57,7 +54,7 @@ function SuccessResponse (props) {
           : <FailedStatus>Failed to find Falcone </FailedStatus>}
 
         <Button onClick={handleStart}>Start Again</Button>
-      </StyledSection>
+      </section>
       {isStartAgain ? <Redirect to='/' /> : null}
       <Footer />
     </main>
