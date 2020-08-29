@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
-import FindFalcone from './components/FindFalcone/FindFalcone'
+import FindFalcone from './components/FindFalcone'
 import './assets/css/App.css'
 import NetworkErr from './components/Status/NetworkErr'
 
