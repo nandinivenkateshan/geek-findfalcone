@@ -77,16 +77,19 @@ function FindFalcone ({ onNetwork }) {
 
   return (
     <section className='falcone falcone-main'>
-      <h1 className='falcone-main__heading'>
-        Select Planets you want to search in
-      </h1>
+      <article className='falcone-heading'>
+        <h1 className='falcone-main__heading'>
+          Select Planets you want to search in
+        </h1>
+        <Time data={state} />
+      </article>
       <article className='falcone-content'>
         <DestinationList
           data={state}
           onUpdateState={val => handleUpdatedState(val)}
           onSubmitVal={val => handleFindBtn(val)}
         />
-        <Time data={state} />
+
         <FindButton
           isSubmit={isSubmit}
           data={state}
