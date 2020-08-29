@@ -39,7 +39,7 @@ function Button ({ handleNetwork, isSubmit, data, token }) {
   }
 
   return (
-    <button className={!isSubmit ?'submitBtn--disable' : 'submitBtn--active'} disabled={!isSubmit} onClick={handleSubmit}>Find Falcone</button>
+    <button className={!isSubmit ? 'submitBtn--disable' : 'submitBtn--active'} disabled={!isSubmit} onClick={handleSubmit}>Find Falcone</button>
   )
 }
 

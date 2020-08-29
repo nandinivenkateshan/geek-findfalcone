@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
+import Header from './components/Header'
+import Footer from './components/Footer'
 import FindFalcone from './components/FindFalcone'
 import './assets/css/App.css'
 import NetworkErr from './components/Status/NetworkErr'
@@ -13,15 +13,16 @@ function App () {
   return (
     <main className='app'>
       {
-        networkErr ? 
-        <NetworkErr err={networkErr} /> :
-        <>
-          <Header />
-          <FindFalcone onNetwork={val => handleNetwork(val)} />
-          <Footer />
-        </>
+        networkErr
+          ? <NetworkErr err={networkErr} />
+          : (
+            <>
+              <Header />
+              <FindFalcone onNetwork={val => handleNetwork(val)} />
+              <Footer />
+            </>)
       }
-      
+
     </main>
   )
 }

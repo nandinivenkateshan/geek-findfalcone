@@ -75,7 +75,6 @@ function FindFalcone ({ onNetwork }) {
 
   const handleFindBtn = val => setSubmit(val)
 
-
   return (
     <section className='falcone falcone-main'>
       <h1 className='falcone-main__heading'>
