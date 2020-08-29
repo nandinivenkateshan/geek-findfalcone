@@ -6,9 +6,18 @@ function DestinationList ({ data, onUpdateState, onSubmitVal }) {
   const handlePlanet = (value, destination, planetIndex) => {
     const planetName = value.name
     let updatedPlanets
+    let vehicleName = ''
     const updatedState = data.map((item, index) => {
       if (index === planetIndex) {
-        // if (item.showVehicles)
+        if (item.showVehicles) {
+          item.vehicles.forEach(elem => {
+            if (elem.checked) {
+              document.getElementById(`${elem.name + destination}`).checked = false
+              elem.total_no += 1
+              vehicleName = elem.name
+            }
+          })
+        }
         item.showVehicles = true
         item.time = 0
         // disable the vehicle based on the speed and distance
@@ -31,9 +40,22 @@ function DestinationList ({ data, onUpdateState, onSubmitVal }) {
           item.count = 0
         })
       }
+      if (item.destination > destination) {
+        item.vehicles.forEach(elem => {
+          if (vehicleName === elem.name) {
+            elem.total_no += 1
+          }
+        })
+      }
       if (item.destination !== destination && item.destination > planetIndex) {
         const deSelectedPlanets = updatedPlanets.filter((item) => !item.isSelected)
         item.planets = JSON.parse(JSON.stringify(deSelectedPlanets))
+      }
+      if (item.destination < destination) {
+        item.isSelectBtn = false
+        item.vehicles.forEach(elem => {
+          elem.isPrevVehicle = 'true'
+        })
       }
       return item
     })
@@ -103,11 +125,13 @@ function DestinationList ({ data, onUpdateState, onSubmitVal }) {
                     <p
                       key={elem.name + item.destination}
                       className={
-                        elem.isDisable
+                        (elem.isDisable
                           ? 'destination__vehicle--disable'
-                          : 'destination__vehicle--active'
+                          : 'destination__vehicle--active') + ' ' +
+                          (elem.isPrevVehicle ? 'disableClick' : null)
                       }
                     >
+
                       <input
                         id={elem.name + item.destination}
                         type='radio'
