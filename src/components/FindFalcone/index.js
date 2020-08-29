@@ -1,97 +1,102 @@
-import React,{ useState, useEffect } from 'react'
-import Destination from '../Planets'
+import React, { useState, useEffect } from 'react'
+import DestinationList from '../DestinationList'
 import Time from '../Time'
 import FindButton from '../FindButton'
 import '../../assets/css/style.css'
-import { fetchGet, fetchToken } from '../../helpers'
+import { getReq, postReq } from '../../helpers'
 import { BASE_URL } from '../../config'
 
-function FindFalcone ({onNetwork}) {
+function FindFalcone ({ onNetwork }) {
+  const [state, setState] = useState([
+    { destination: 1, isSelectBtn: true, showVehicles: false, time: 0 },
+    { destination: 2, isSelectBtn: false, showVehicles: false, time: 0 },
+    { destination: 3, isSelectBtn: false, showVehicles: false, time: 0 },
+    { destination: 4, isSelectBtn: false, showVehicles: false, time: 0 }
+  ])
+  const [isSubmit, setSubmit] = useState(false)
+  const [token, setToken] = useState('')
 
-    const [data, setData] = useState([
-        { destination: 1, showPlanets: true, showVehicles: false, time: 0 },
-        { destination: 2, showPlanets: false, showVehicles: false, time: 0 },
-        { destination: 3, showPlanets: false, showVehicles: false, time: 0 },
-        { destination: 4, showPlanets: false, showVehicles: false, time: 0 }
-      ])
-      const [submitBtn, setSubmitBtn] = useState(true)
-      const [token, setToken] = useState('')
-    
-      useEffect(() => {
-        getToken()
-        getPlanets()
-        getVehicles()
-      }, [])
-    
-      const updateData = (key,val) => {
-        const updatedData = data.map(item => {
-          item[key] = JSON.parse(JSON.stringify(val))
-          return item
-        })
-        setData(updatedData)
-      }
-    
-     
-      const getToken = async () => {
-        const result= await fetchToken(`${BASE_URL}/token`)
-        if (result.error) {
-          onNetwork(result.error)
-          return
-        }
-        if (result.netErr) {
-          onNetwork('Network Error:  Failed to Fetch token')
-          return
-        }
-        setToken(result.token)
-      }
-    
-    
-      const getPlanets = async () => {
-        const result = await fetchGet(`${BASE_URL}/planets`)
-        if (result.netErr) {
-          onNetwork('Network Error:  Failed to Fetch Planets') 
-          return
-        }
-        const updatedResult = result.map((item, index) => {
-          item.value = item.name
-          item.label = item.name
-          item.isSelected = false
-          return item
-        })
-        updateData('planets',updatedResult)
-      }
-    
-      const getVehicles = async () => {
-        const result = await fetchGet(`${BASE_URL}/vehicles`)
-        if (result.netErr) {
-          onNetwork('Network Error:  Failed to Fetch Vehicles')
-          return
-        }
-        result.forEach(item => {
-          item.isDisable = ''
-          item.count = 0
-          item.checked = false
-        })
-        updateData('vehicles',result)
-      }
+  useEffect(() => {
+    getToken()
+    getPlanets()
+    getVehicles()
+  }, [])
 
-      const handleSelect = val => setData(val)
-      const handleSubmit = val => {
-          console.log('val in submit',val)
-          setSubmitBtn(val)
-      }
+  const getToken = async () => {
+    const result = await postReq(`${BASE_URL}/token`)
+    if (result.error) {
+      onNetwork(result.error)
+      return
+    }
+    if (result.netErr) {
+      onNetwork('Network Error')
+      return
+    }
+    setToken(result.token)
+  }
+
+  const getPlanets = async () => {
+    const result = await getReq(`${BASE_URL}/planets`)
+    if (result.netErr) {
+      onNetwork('Network Error')
+      return
+    }
+    result.forEach(item => {
+      item.value = item.name
+      item.label = item.name
+      item.isSelected = false
+    })
+    updateData('planets', result)
+  }
+
+  const getVehicles = async () => {
+    const result = await getReq(`${BASE_URL}/vehicles`)
+    if (result.netErr) {
+      onNetwork('Network Error')
+      return
+    }
+    result.forEach(item => {
+      item.isDisable = ''
+      item.count = 0
+      item.checked = false
+    })
+    updateData('vehicles', result)
+  }
+
+  const updateData = (key, val) => {
+    const updatedState = state.map((item) => {
+      item[key] = JSON.parse(JSON.stringify(val))
+      return item
+    })
+    setState(updatedState)
+  }
+
+  const handleUpdatedState = val => setState(val)
+
+  const handleFindBtn = val => setSubmit(val)
 
 
-    return (
-        <section className='falcone falcone-main' >
-            <h1 className='falcone-main__heading'>Select Planets you want to search in</h1>
-           
-                <Destination data={data}  onSelect={val => handleSelect(val)} onSubmit={val => handleSubmit(val)} />
-                <Time data={data} />
-                <FindButton submitVal={submitBtn} data={data} token={token} handleNetwork={val => onNetwork(val)}/>
-            
-        </section>
-    )
+  return (
+    <section className='falcone falcone-main'>
+      <h1 className='falcone-main__heading'>
+        Select Planets you want to search in
+      </h1>
+      <article className='falcone-content'>
+        <DestinationList
+          data={state}
+          onUpdateState={val => handleUpdatedState(val)}
+          onSubmitVal={val => handleFindBtn(val)}
+        />
+        <Time data={state} />
+        <FindButton
+          isSubmit={isSubmit}
+          data={state}
+          token={token}
+          handleNetwork={val => onNetwork(val)}
+        />
+      </article>
+    </section>
+  )
 }
 
 export default FindFalcone
