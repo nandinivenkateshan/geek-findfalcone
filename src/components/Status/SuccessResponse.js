@@ -2,8 +2,13 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import queryString from 'query-string'
-import Header from '../Header/Header'
+import Header from '../Header'
+import Footer from '../Footer'
+import '../../assets/css/App.css'
 
+const StyledSection = styled.section`
+margin-top:0px;
+`
 const FailedStatus = styled.p`
 text-align: center;
 font-size: 25px;
@@ -39,18 +44,22 @@ function SuccessResponse (props) {
     setStartAgain(true)
   }
   return (
-    <main>
+    <main className='app'>
       <Header />
-      {values.status === 'success'
-        ? (
-          <>
-            <SuccesStatus>Success! Congratulations on Finding Falcone.King Shan is almighty pleased.</SuccesStatus>
-            <SubHeading>Time Taken:  <Span>{values.time}</Span></SubHeading>
-            <SubHeading>Planet Found:  <Span>{values.name}</Span></SubHeading>
-          </>)
-        : <FailedStatus>Failed to find Falcone </FailedStatus>}
-      <Button onClick={handleStart}>Start Again</Button>
+      <StyledSection>
+        {values.status === 'success'
+          ? (
+            <>
+              <SuccesStatus>Success! Congratulations on Finding Falcone.King Shan is almighty pleased.</SuccesStatus>
+              <SubHeading>Time Taken:  <Span>{values.time}</Span></SubHeading>
+              <SubHeading>Planet Found:  <Span>{values.name}</Span></SubHeading>
+            </>)
+          : <FailedStatus>Failed to find Falcone </FailedStatus>}
+
+        <Button onClick={handleStart}>Start Again</Button>
+      </StyledSection>
       {isStartAgain ? <Redirect to='/' /> : null}
+      <Footer />
     </main>
   )
 }
