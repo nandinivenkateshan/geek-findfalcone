@@ -89,7 +89,6 @@ function FindFalcone ({ onNetwork }) {
           onUpdateState={val => handleUpdatedState(val)}
           onSubmitVal={val => handleFindBtn(val)}
         />
-
         <FindButton
           isSubmit={isSubmit}
           data={state}
