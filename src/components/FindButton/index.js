@@ -5,21 +5,12 @@ import { BASE_URL } from '../../config'
 
 function Button ({ handleNetwork, isSubmit, data, token }) {
   const handleSubmit = async (e) => {
-    // e.preventDefault()
     let path
     const planetNames = []
     const vehicleNames = []
-    data.map((item) => {
-      item.planets.map((ele) => {
-        if (ele.isSelected) {
-          planetNames.push(ele.name)
-        }
-      })
-      item.vehicles.map((ele) => {
-        if (ele.checked) {
-          vehicleNames.push(ele.name)
-        }
-      })
+    data.map(item => {
+      item.planets.map(ele => ele.isSelected ? planetNames.push(ele.name) : null)
+      item.vehicles.map(ele => ele.checked ? vehicleNames.push(ele.name) : null)
     })
     const value = {
       token,
@@ -32,9 +23,7 @@ function Button ({ handleNetwork, isSubmit, data, token }) {
       return
     }
     if (result.status) {
-      const totalTime = data.reduce((acc, cv) => ({
-        time: acc.time + cv.time
-      }))
+      const totalTime = data.reduce((acc, cv) => ({ time: acc.time + cv.time }))
       path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime.time}`
     }
     window.open(path)

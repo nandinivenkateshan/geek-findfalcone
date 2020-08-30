@@ -91,6 +91,7 @@ function DestinationList ({ data, onUpdateState, onSubmitVal }) {
           elem.isPrevVehicle = 'true'
         })
       }
+      onSubmitVal(false)
       return item
     })
     onUpdateState(updatedState)
