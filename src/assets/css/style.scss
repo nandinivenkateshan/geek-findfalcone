@@ -1,0 +1,99 @@
+$primary-color: rgb(180, 14, 14);
+$black-color: rgba(0, 0, 0, 0.863);
+$font-size: 15px;
+$small: 320px;
+$medium: 600px;
+$large: 1024px;
+
+.falcone-main {
+  margin: 0px 60px;
+  .falcone-header {
+    display: grid;
+    grid-template-columns: 2fr 0.5fr;
+    @media (min-width: $small) and (max-width: $medium) {
+      grid-template-columns: 1fr;
+    }
+  }
+  .falcone-main__heading {
+    color: #990c32;
+    text-shadow: 2px 2px 2px #bfaba4;
+    text-align: center;
+    margin-left: 200px;
+    @media (min-width: $small) and (max-width: $medium) {
+      margin: 30px 0px 0px 0px;
+    }
+  }
+  .falcone-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 6fr 0.5fr;
+  }
+}
+
+.falcone__time {
+  font-size: $font-size + 5px;
+  color: $primary-color;
+  @media (min-width: $small) and (max-width: $medium) {
+    text-align: center;
+  }
+}
+
+.submitBtn--disable {
+  grid-area: 2/1/3/3;
+  height: 40px;
+  width: 100px;
+  margin: 2px auto 0px auto;
+  border-radius: 10px;
+  @media (min-width: $small) and (max-width: $large) {
+    margin-top: 40px;
+  }
+}
+
+.submitBtn--active {
+  @extend .submitBtn--disable;
+  border: none;
+  color: white;
+  background: green;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.destination-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-area: 1/1/2/2;
+  grid-gap: 40px;
+  @media (min-width: 768px) and (max-width: $large) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: $small) and (max-width: $medium) {
+    grid-template-columns: 1fr;
+  }
+  .destination__heading {
+    font-size: $font-size + 3px;
+    text-align: center;
+    color: $black-color;
+    text-shadow: 1px 1px 1px rgb(137, 120, 182);
+  }
+  .destination__select__btn {
+    color: $primary-color;
+    font-size: $font-size;
+  }
+  .destination__vehicle--active {
+    font-size: $font-size;
+    color: $black-color;
+    text-shadow: 1px 1px 1px rgb(166, 187, 143);
+  }
+  .destination__vehicle__label {
+    cursor: pointer;
+  }
+  .destination__prevVehicle--disable {
+    pointer-events: none;
+  }
+  .destination__vehicle--disable {
+    @extend .destination__prevVehicle--disable;
+    opacity: 0.4;
+    font-size: $font-size;
+  }
+}

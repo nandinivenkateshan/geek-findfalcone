@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import '../../assets/css/style.css'
+import '../../assets/css/style.scss'
 
 function DestinationList ({ data, onUpdateState, onSubmitVal }) {
   const LAST_DESTINATION = 4
@@ -145,7 +145,7 @@ function DestinationList ({ data, onUpdateState, onSubmitVal }) {
                         (elem.isDisable
                           ? 'destination__vehicle--disable'
                           : 'destination__vehicle--active') + ' ' +
-                          (elem.isPrevVehicle ? 'disableClick' : null)
+                          (elem.isPrevVehicle ? 'destination__prevVehicle--disable' : null)
                       }
                     >
 

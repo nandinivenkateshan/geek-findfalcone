@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/css/style.css'
+import '../../assets/css/style.scss'
 import { postReq } from '../../helpers'
 import { BASE_URL } from '../../config'
 

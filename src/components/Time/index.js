@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/css/style.css'
+import '../../assets/css/style.scss'
 
 function Time ({ data }) {
   const totalTime = data.reduce((acc, cv) => ({ time: acc.time + cv.time }))

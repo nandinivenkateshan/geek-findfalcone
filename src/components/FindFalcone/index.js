@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import DestinationList from '../DestinationList'
 import Time from '../Time'
 import FindButton from '../FindButton'
-import '../../assets/css/style.css'
+import '../../assets/css/style.scss'
 import { getReq, postReq } from '../../helpers'
 import { BASE_URL } from '../../config'
 
@@ -77,7 +77,7 @@ function FindFalcone ({ onNetwork }) {
 
   return (
     <section className='falcone falcone-main'>
-      <article className='falcone-heading'>
+      <article className='falcone-header'>
         <h1 className='falcone-main__heading'>
           Select Planets you want to search in
         </h1>
