@@ -9,13 +9,13 @@ function Button ({ handleNetwork, isSubmit, data, token }) {
     let path
     const planetNames = []
     const vehicleNames = []
-    data.map(item => {
-      item.planets.map(ele => {
+    data.map((item) => {
+      item.planets.map((ele) => {
         if (ele.isSelected) {
           planetNames.push(ele.name)
         }
       })
-      item.vehicles.map(ele => {
+      item.vehicles.map((ele) => {
         if (ele.checked) {
           vehicleNames.push(ele.name)
         }
@@ -32,14 +32,22 @@ function Button ({ handleNetwork, isSubmit, data, token }) {
       return
     }
     if (result.status) {
-      const totalTime = data.reduce((acc, cv) => ({ time: acc.time + cv.time }))
+      const totalTime = data.reduce((acc, cv) => ({
+        time: acc.time + cv.time
+      }))
       path = `/find?status=${result.status}&&name=${result.planet_name}&&time=${totalTime.time}`
     }
     window.open(path)
   }
 
   return (
-    <button className={!isSubmit ? 'submitBtn--disable' : 'submitBtn--active'} disabled={!isSubmit} onClick={handleSubmit}>Find Falcone</button>
+    <button
+      className={!isSubmit ? 'submitBtn--disable' : 'submitBtn--active'}
+      disabled={!isSubmit}
+      onClick={handleSubmit}
+    >
+      Find Falcone
+    </button>
   )
 }
 
