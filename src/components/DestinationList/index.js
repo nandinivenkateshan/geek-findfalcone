@@ -3,7 +3,7 @@ import Select from 'react-select'
 import '../../assets/css/style.css'
 
 function DestinationList ({ data, onUpdateState, onSubmitVal }) {
-  const MAX_DESTINATION = 4
+  const LAST_DESTINATION = 4
   const resetCurDestVehicles = (vehicles, destination) => {
     let vehicleName = ''
     vehicles.forEach(elem => {
@@ -101,11 +101,11 @@ function DestinationList ({ data, onUpdateState, onSubmitVal }) {
     const planetDistance = data[planetIndex].planets.filter((item) => item.isSelected)[0].distance
     const updatedState = data.map(item => {
       // Activate next select Btn the select options
-      if (item.destination === destination + 1 && destination <= MAX_DESTINATION) {
+      if (item.destination === destination + 1 && destination <= LAST_DESTINATION) {
         item.isSelectBtn = true
       }
       // Activate the submit button once destination4's vehicle selected
-      if (destination === 4) onSubmitVal(true)
+      if (destination === LAST_DESTINATION) onSubmitVal(true)
       if (destination === item.destination) {
         item.vehicles.forEach(ele => {
           ele.name === vehicleName
