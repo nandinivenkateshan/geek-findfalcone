@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<DocumentFragment>
+  <footer
+    class="sc-AxjAm hvLVfH"
+  >
+    <p
+      class="sc-AxiKw eXQrcs"
+    >
+      <span>
+        Coding Problem -
+      </span>
+       
+      <a
+        class="sc-AxirZ jOWcRa"
+        href="https://www.geektrust.in/"
+        target="new"
+      >
+        www.geektrust.in/finding-falcone
+      </a>
+    </p>
+  </footer>
+</DocumentFragment>
+`;

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<DocumentFragment>
+  <header
+    class="sc-AxjAm gWmjHI"
+  >
+    <aside
+      class="sc-AxiKw dDwdV"
+    >
+      <button
+        class="sc-AxhCb cMlMFk"
+        to=""
+      >
+        Reset
+      </button>
+      <a
+        class="sc-AxhUy mdJCr"
+        href="https://www.geektrust.in/"
+        target="new"
+      >
+        Geektrust Home
+      </a>
+    </aside>
+    <h1
+      class="sc-AxirZ jmdGFA"
+    >
+       Finding Falcone !
+    </h1>
+  </header>
+</DocumentFragment>
+`;

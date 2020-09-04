@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import queryString from 'query-string'
-import Header from '../Header'
-import Footer from '../Footer'
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 import '../../assets/css/App.css'
 
 const FailedStatus = styled.p`
